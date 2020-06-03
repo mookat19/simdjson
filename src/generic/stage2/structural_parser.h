@@ -75,10 +75,7 @@ struct structural_parser {
   uint8_t *current_string_buf_loc{};
   uint32_t depth;
 
-  really_inline structural_parser(
-    dom_parser_implementation &_parser,
-    uint32_t next_structural = 0
-  ) : structurals(_parser.buf, _parser.len, _parser.structural_indexes.get(), next_structural), parser{_parser}, depth{0} {}
+  really_inline structural_parser(dom_parser_implementation &_parser, uint32_t next_structural = 0) : structurals(_parser.buf, _parser.len, _parser.structural_indexes.get(), next_structural), parser{_parser}, depth{0} {}
 
   WARN_UNUSED really_inline bool start_scope(ret_address_t continue_state) {
     parser.containing_scope[depth].tape_index = parser.current_loc;
@@ -333,7 +330,7 @@ struct structural_parser {
 
   WARN_UNUSED really_inline error_code start(size_t len, ret_address_t finish_state) {
     log_start();
-    init(); // sets is_valid to false
+    init();
     if (len > parser.capacity()) {
       return parser.error = CAPACITY;
     }
